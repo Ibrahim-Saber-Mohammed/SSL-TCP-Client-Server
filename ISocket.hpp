@@ -9,10 +9,14 @@
 
 namespace NETWORK
 {
-
+    /**
+    * This abstract class is an Interface providing all the behaviors required for the Sockets
+    * These operations are related to all the sockets either it is a server (TCP/UDP) or a client
+    */
     class ISocket
     {
     public:
+        // These are represinting the types of the callbacks functions 
         using OnRecieved = std::function<void(void)>;
         using OnAccept = std::function<void(void)>;
         virtual bool CreateSocket(void) noexcept = 0;
@@ -22,6 +26,10 @@ namespace NETWORK
         virtual bool isConnected(void) const noexcept = 0;
         virtual~ISocket()=default;
     };
+     /**
+    * This abstract class is an Interface providing all the behaviors required for the Server only
+    * The class extends the operations from the ISocket and add the behaviors required for the server only
+    */
     class IServerSocket:public ISocket
     {
         public:
