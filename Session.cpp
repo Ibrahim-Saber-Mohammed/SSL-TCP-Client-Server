@@ -23,6 +23,9 @@ namespace NETWORK
         std::cout << "Handshake thread created\n";
         std::thread(&SessionManger::do_HandShake, shared_from_this()).detach();
         m_processingThread = std::thread(&SessionManger::processQueue, shared_from_this());
+        #if 0
+        m_eventLoop->attachCallBack(m_socket->get_client_socket(), &SessionManger::do_read);
+        #endif
     }
     SessionManger::~SessionManger()
     {

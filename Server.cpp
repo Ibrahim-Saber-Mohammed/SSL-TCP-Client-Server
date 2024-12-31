@@ -5,6 +5,7 @@ namespace NETWORK
     TCP_Server::TCP_Server(SSL_CTX *ctx, const std::string &ip, uint16_t port) : m_ctx{ctx}
     {
         m_Server = std::unique_ptr<IServerSocket>(new ServerSocket(port, ip));
+        m_eventloop = std::shared_ptr<EventLoop>(new EventLoop());
         if (!m_Server->CreateSocket())
         {
             ERROR("Failedto create the Socket");
@@ -22,6 +23,10 @@ namespace NETWORK
         {
             do_accept();
         }
+        #if 0
+        m_eventloop->attachCallBack(m_Serverfd, &TCP_Server::do_accept);
+        m_eventloop->run();
+        #endif
     }
 
     void TCP_Server::do_accept(void)

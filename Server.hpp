@@ -4,6 +4,7 @@
 #include <memory>
 #include "ServerSocket.hpp"
 #include "Session.hpp"
+#include "EventLoop.hpp"
 
 namespace NETWORK
 {
@@ -27,6 +28,7 @@ namespace NETWORK
         std::vector<std::shared_ptr<SessionManger>> m_sessions;
         std::vector<SOCKET> m_clients;
         SSL_CTX* m_ctx;
+        std::shared_ptr<EventLoop> m_eventloop{nullptr};
     };
 }
 

@@ -11,6 +11,7 @@
 #include <openssl/ssl.h>
 #include <openssl/err.h>
 #include "ThreadSafetyQueue.hpp"
+#include "EventLoop.hpp"
 
 namespace NETWORK{
 
@@ -41,6 +42,7 @@ namespace NETWORK{
         char m_buffer[1024];
         SSL* m_ssl{nullptr};
         std::shared_ptr<IServerSocket> m_socket;
+        std::shared_ptr<EventLoop> m_eventLoop{nullptr}
     };
 }
 
