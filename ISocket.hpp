@@ -38,6 +38,7 @@ namespace NETWORK
         virtual bool accept() noexcept = 0;
         virtual SOCKET get_client_socket() const noexcept = 0;
         virtual void  close_client_socket() noexcept = 0;
+        virtual SOCKET git_server_socket() const noexcept  = 0;
         virtual ~IServerSocket() = default;
     };
 }

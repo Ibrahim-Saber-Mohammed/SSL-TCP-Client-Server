@@ -181,6 +181,7 @@ namespace NETWORK
         */
         virtual bool bind(const std::string& ip, uint16_t portNumber)noexcept override;
         virtual bool isConnected(void) const noexcept override;
+        virtual SOCKET git_server_socket(void) const noexcept override;
         
     private:
         bool m_isConnectedServer{false};

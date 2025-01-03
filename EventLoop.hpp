@@ -10,11 +10,11 @@
 namespace NETWORK{
 
     class EventLoop{
+        public:
         enum class ActionType{
             RECIEVE, WRITE, BOTH
         };
-        public:
-        EventLoop();
+        EventLoop(SOCKET listenSocket);
         using OnActionCallBack= std::function<void(void)>;
         using MutexGuard = std::lock_guard<std::mutex>;
         void run(void);
@@ -28,6 +28,7 @@ namespace NETWORK{
         fd_set m_readSet;
         fd_set m_writeSet;
         size_t m_maxSocketFd;
+        SOCKET m_listeneSocket{INVALID_SOCKET};
     };
 
 }

@@ -25,24 +25,24 @@ namespace NETWORK{
         ~SessionManger();
         
 
-    private:
-        void do_HandShake(void);
-        void do_read(void);
-        bool do_write();
-        void processQueue(void);
-        bool isDataReady(void);
-        void stopProcessing(void);
-        std::mutex m_mtx;
-        ThreadSafeQueue<std::unique_ptr<std::string>>m_queue;
-        bool m_stopProcessing{false};
-        std::thread m_processingThread;
-        std::thread m_readThread;
-        std::condition_variable m_cv;
-        OnRecieved onRecievedCallBack;
-        char m_buffer[1024];
-        SSL* m_ssl{nullptr};
-        std::shared_ptr<IServerSocket> m_socket;
-        std::shared_ptr<EventLoop> m_eventLoop{nullptr}
+        private:
+            void do_HandShake(void);
+            void do_read(void);
+            bool do_write();
+            void processQueue(void);
+            void stopProcessing(void);
+            std::mutex m_mtx;
+            ThreadSafeQueue<std::unique_ptr<std::string>>m_queue;
+            bool m_stopProcessing{false};
+            std::thread m_processingThread;
+            std::thread m_readThread;
+            std::condition_variable m_cv;
+            OnRecieved onRecievedCallBack;
+            char m_buffer[1024];
+            SSL* m_ssl{nullptr};
+            std::shared_ptr<IServerSocket> m_socket;
+            std::shared_ptr<EventLoop> m_eventLoop{nullptr};
+            SOCKET m_client{INVALID_SOCKET};
     };
 }
 

@@ -20,6 +20,10 @@ namespace NETWORK{
     {
         return m_isConnectedServer;
     }
+    SOCKET ServerSocket::git_server_socket(void) const noexcept
+    {
+        return m_socketfd;
+    }
     bool ServerSocket::isValidPortNumber(uint16_t portNumber) const noexcept
     {
         if((portNumber < MIN_PORT_VALUE) || (portNumber > MAX_PORT_VALUE))
