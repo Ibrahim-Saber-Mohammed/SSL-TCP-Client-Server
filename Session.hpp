@@ -15,28 +15,23 @@
 
 namespace NETWORK{
 
-    class SessionManger : public std::enable_shared_from_this<SessionManger> {
+    class SessionManager : public std::enable_shared_from_this<SessionManger> {
         public:
         using OnRecieved = std::function<void(std::unique_ptr<std::string>)>;
         using OnAccept = std::function<void(void)>;
         using MutexGuard = std::lock_guard<std::mutex>;
-        SessionManger(std::shared_ptr<IServerSocket>socket, SSL_CTX* ctx);
+        SessionManager(std::shared_ptr<IServerSocket>socket, SSL_CTX* ctx);
         void start(void);
-        ~SessionManger();
-        
-
+        ~SessionManager();
+        SessionManager(const SessionManager&) = delete;
+        SessionManager& operator = (const SessionManager& ) = delete;
+        SessionManager(SessionManager&&) = delete;
+        SessionManager& operator(SessionManager&&) = delete;
         private:
             void do_HandShake(void);
             void do_read(void);
             bool do_write();
             void processQueue(void);
-            void stopProcessing(void);
-            std::mutex m_mtx;
-            ThreadSafeQueue<std::unique_ptr<std::string>>m_queue;
-            bool m_stopProcessing{false};
-            std::thread m_processingThread;
-            std::thread m_readThread;
-            std::condition_variable m_cv;
             OnRecieved onRecievedCallBack;
             char m_buffer[1024];
             SSL* m_ssl{nullptr};

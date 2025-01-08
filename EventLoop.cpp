@@ -57,7 +57,7 @@ namespace NETWORK
                         lck.unlock();
                         callBack();
                     }
-                    else if (FD_ISSET(iter, &m_readSet)) // handling write socekts
+                    else if (FD_ISSET(iter, &m_writeSet)) // handling write socekts
                     {
                         std::unique_lock<std::mutex> lck(m_mtx);
                         auto callBack = OnWriteCallBack_map.at(iter);
