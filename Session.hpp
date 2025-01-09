@@ -20,7 +20,7 @@ namespace NETWORK{
         using OnRecieved = std::function<void(std::unique_ptr<std::string>)>;
         using OnAccept = std::function<void(void)>;
         using MutexGuard = std::lock_guard<std::mutex>;
-        SessionManager(std::shared_ptr<IServerSocket>socket, SSL_CTX* ctx);
+        SessionManager(std::shared_ptr<IServerSocket>socket);
         void start(void);
         ~SessionManager();
         SessionManager(const SessionManager&) = delete;
@@ -34,7 +34,7 @@ namespace NETWORK{
             void processQueue(void);
             OnRecieved onRecievedCallBack;
             char m_buffer[1024];
-            SSL* m_ssl{nullptr};
+            std::shared_ptr<SSL_Wrapper> m_ssl_wrapper;
             std::shared_ptr<IServerSocket> m_socket;
             std::shared_ptr<EventLoop> m_eventLoop{nullptr};
             SOCKET m_client{INVALID_SOCKET};

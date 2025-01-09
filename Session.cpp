@@ -3,23 +3,16 @@
 
 namespace NETWORK
 {
-    SessionManager::SessionManager(std::shared_ptr<IServerSocket> socket, SSL_CTX *ctx) : m_socket{socket}, m_ssl{SSL_new(ctx)}
+    SessionManager::SessionManager(std::shared_ptr<IServerSocket> socket) : m_socket{socket},
+                                  m_ssl_wrapper{std::make_shared<SSL_Wrapper>(socket->get_client_socket())}
     {
         m_client = m_socket->get_client_socket();
-        SSL_set_fd(m_ssl, m_client);
-        // Check if SSL was created successfully
-        if (!m_ssl)
-        {
-            // Handle SSL initialization error
-            throw std::runtime_error("Failed to create SSL object");
-        }
     }
-
     void SessionManager::start(void)
     {
         SSL_set_fd(m_ssl, m_client);
         std::cout << "Handshake thread created\n";
-        m_eventLoop->attachCallBack(m_client, EventLoop::ActionType::RECIEVE, [this]()
+        m_eventLoop->attachCallBack(m_ssl_wrapper->get_fd(), EventLoop::ActionType::RECIEVE, [this]()
                                     { this->do_HandShake(); });
         // to be fixed an integrate a thread pool pattern instead
         m_processingThread = std::thread(&SessionManager::processQueue, shared_from_this());
@@ -36,7 +29,7 @@ namespace NETWORK
     {
         std::unique_lock<decltype(m_mtx)> lock(m_mtx);
         std::cout << "Server HandShaken starts\n";
-        if ((SSL_accept(m_ssl) <= 0))
+        if ((m_ssl_wrapper->do_handshake() <= 0))
         {
             // Handle SSL handshake error
             ERR_print_errors_fp(stderr);
@@ -50,11 +43,13 @@ namespace NETWORK
             // Process the data
             //@TODO: Add the do read to the event loop class to monitor the sockets for data availabilty
             //@TODO: Implement thread pool to handle the multiple threads if needed to use multithreading 
+            m_eventLoop->attachCallBack(m_ssl_wrapper->get_fd(), EventLoop::ActionType::RECIEVE, [this]()
+                                    { this->do_read(); });
         }
     }
     void SessionManager::do_read(void)
     {
-        const auto l_valRecieved = SSL_read(m_ssl, &m_buffer, sizeof(m_buffer));
+        const auto l_valRecieved = m_ssl_wrapper->receive( &m_buffer, sizeof(m_buffer));
         std::cout << " do read thread Started\n";
         if (l_valRecieved <= 0)
         {
@@ -77,7 +72,6 @@ namespace NETWORK
         }
         std::cout << "do read thread ends\n";
     }
-
     void SessionManager::processQueue(void)
     {
         std::cout << "Processing thread Starts\n";
@@ -104,5 +98,4 @@ namespace NETWORK
             }
         }
     }
-
 }

@@ -16,9 +16,6 @@ namespace NETWORK
     class ISocket
     {
     public:
-        // These are represinting the types of the callbacks functions 
-        using OnRecieved = std::function<void(void)>;
-        using OnAccept = std::function<void(void)>;
         virtual bool CreateSocket(void) noexcept = 0;
         virtual bool connect() noexcept = 0;
         virtual bool send(const std::string &message) noexcept = 0;

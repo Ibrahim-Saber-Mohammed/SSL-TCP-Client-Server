@@ -21,10 +21,8 @@ namespace NETWORK{
         void attachCallBack(SOCKET socketFd, ActionType type, OnActionCallBack callBack);
         void detachCallBack(SOCKET socketFd, ActionType type);
         private:
-        std::unordered_map<SOCKET, OnActionCallBack>OnRecieveCallBack_map;
-        std::unordered_map<SOCKET, OnActionCallBack>OnWriteCallBack_map;
+        std::unordered_map<SOCKET, std::tuple <OnActionCallBack, OnActionCallBack>>m_callBacks;
         std::mutex m_mtx;
-        fd_set m_masterSet;
         fd_set m_readSet;
         fd_set m_writeSet;
         size_t m_maxSocketFd;
