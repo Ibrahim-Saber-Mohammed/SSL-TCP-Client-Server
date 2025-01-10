@@ -1,0 +1,6 @@
+/home/ibrahim/Desktop/Sockets/Client-Server/build/CMakeFiles/ServerApp.dir
+/home/ibrahim/Desktop/Sockets/Client-Server/build/CMakeFiles/edit_cache.dir
+/home/ibrahim/Desktop/Sockets/Client-Server/build/CMakeFiles/rebuild_cache.dir
+/home/ibrahim/Desktop/Sockets/Client-Server/build/Server/CMakeFiles/Sockets.dir
+/home/ibrahim/Desktop/Sockets/Client-Server/build/Server/CMakeFiles/edit_cache.dir
+/home/ibrahim/Desktop/Sockets/Client-Server/build/Server/CMakeFiles/rebuild_cache.dir

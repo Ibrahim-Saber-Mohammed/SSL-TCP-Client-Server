@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/Server.dir/Server/src/main.cpp.o -o Server  Server/libSockets.a -static-libstdc++ -lssl -lcrypto -lpthread 
