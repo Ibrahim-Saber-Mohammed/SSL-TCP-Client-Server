@@ -2,9 +2,10 @@
 
 namespace NETWORK
 {
-    Server::Server(std::unique_ptr<IServerSocket> ServerStartegy):m_Server{std::move(ServerStartegy)}
+    Server::Server(std::unique_ptr<IServerSocket> ServerStartegy,
+                    std::shared_ptr <ThreadPool> _threadPool,
+                    std::shared_ptr <EventLoop>_eventLoop):m_Server(std::move(ServerStartegy)), m_eventloop(_eventLoop), m_threadPool(_threadPool)
     {
-        m_eventloop = std::shared_ptr<EventLoop>(new EventLoop(m_Server->git_server_socket()));
         if (!m_Server->CreateSocket())
         {
             ERROR("Failedto create the Socket");
@@ -26,9 +27,8 @@ namespace NETWORK
     {
         if (m_Server->accept())
         {
-            std::shared_ptr<SessionManager> session = std::shared_ptr<SessionManager>(new SessionManager(m_Server, m_eventloop));
-            m_sessions.push_back(session);
-            session->start();
+            std::shared_ptr<SessionManager> session = std::shared_ptr<SessionManager>(new SessionManager(m_Server, m_eventloop, m_threadPool));
+            m_threadPool.enqueue( [session](){ session->start();});
         }
     }
 }

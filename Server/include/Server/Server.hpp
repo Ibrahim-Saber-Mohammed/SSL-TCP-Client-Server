@@ -5,6 +5,7 @@
 #include <Socket/ServerSocket.hpp>
 #include <SessionManager/Session.hpp>
 #include <Socket/EventLoop.hpp>
+#include <server/ThreadPool.hpp>
 
 namespace NETWORK
 {
@@ -14,14 +15,15 @@ namespace NETWORK
         // types
         using OnRecieved = std::function<void(std::unique_ptr<std::string>)>;
         using OnAccept = std::function<void(void)>;
-        Server(std::unique_ptr<IServerSocket> ServerStartegy);
+        Server(std::unique_ptr<IServerSocket> ServerStartegy, std::shared_ptr <ThreadPool> _threadPool,
+                    std::shared_ptr <EventLoop>_eventLoop);
         void run();
 
     private:
        void do_accept(void);
     // members
         std::shared_ptr<IServerSocket> m_Server;
-        std::vector<std::shared_ptr<SessionManager>> m_sessions;
+        std::shared_ptr <ThreadPool> m_threadPool;
         std::shared_ptr<EventLoop> m_eventloop{nullptr};
     };
 }

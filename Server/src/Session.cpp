@@ -3,7 +3,8 @@
 
 namespace NETWORK
 {
-    SessionManager::SessionManager(std::shared_ptr<IServerSocket> socket, std::shared_ptr<EventLoop>eventloop) : m_socket{socket}, m_eventLoop{eventloop}
+    SessionManager::SessionManager(std::shared_ptr<IServerSocket> socket, std::shared_ptr<EventLoop>eventloop, 
+                                    std::shared_ptr<ThreadPool>_threadPool) : m_socket{socket}, m_eventLoop{eventloop}, m_threadPool{_threadPool};
     {
         m_ssl_wrapper = std::make_shared<SSL_Wrapper>(socket->get_client_socket());
         m_client = m_socket->get_client_socket();
@@ -55,6 +56,7 @@ namespace NETWORK
         {
             m_buffer[l_valRecieved] = '\0';
             std::cout << "Data received from client: " << m_buffer << "n";
+            
         }
     }
     void SessionManager::processQueue(void)

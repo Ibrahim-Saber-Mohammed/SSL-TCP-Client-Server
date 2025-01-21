@@ -10,7 +10,7 @@
 #include <Server/Utilities.hpp>
 #include <openssl/ssl.h>
 #include <openssl/err.h>
-#include <Server/ThreadSafetyQueue.hpp>
+#include <Server/ThreadPool.hpp>
 #include <Socket/EventLoop.hpp>
 #include <SessionManager/SSL_Wrapper.hpp>
 
@@ -21,7 +21,8 @@ namespace NETWORK{
         using OnRecieved = std::function<void(std::unique_ptr<std::string>)>;
         using OnAccept = std::function<void(void)>;
         using MutexGuard = std::lock_guard<std::mutex>;
-        SessionManager(std::shared_ptr<IServerSocket>socket, std::shared_ptr<EventLoop>eventloop);
+        SessionManager(std::shared_ptr<IServerSocket>socket, std::shared_ptr<EventLoop>eventloop, 
+                         std::shared_ptr<ThreadPool>_threadPool);
         void start(void);
         ~SessionManager();
         SessionManager(const SessionManager&) = delete;
@@ -38,6 +39,7 @@ namespace NETWORK{
             std::shared_ptr<SSL_Wrapper> m_ssl_wrapper;
             std::shared_ptr<IServerSocket> m_socket;
             std::shared_ptr<EventLoop> m_eventLoop{nullptr};
+            std::shared_ptr<ThreadPool>m_threadPool;
             SOCKET m_client{INVALID_SOCKET};
     };
 }

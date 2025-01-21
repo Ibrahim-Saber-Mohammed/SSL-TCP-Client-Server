@@ -19,10 +19,6 @@ namespace NETWORK
         fprintf(stderr, "%s : %s\n", msg, strerror(errno));} \
 
 }
-template<typename T, typename... Ts>
-auto make_unique(Ts&&... args)-> std::unique_ptr<T>
-{
-    return std::unique_ptr<T>(new T(std::forward<Ts>(args)...));
-}
+
 
 #endif
