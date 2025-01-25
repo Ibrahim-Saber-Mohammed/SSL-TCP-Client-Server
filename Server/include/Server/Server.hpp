@@ -18,13 +18,14 @@ namespace NETWORK
         Server(std::unique_ptr<IServerSocket> ServerStartegy, std::shared_ptr <ThreadPool> _threadPool,
                     std::shared_ptr <EventLoop>_eventLoop);
         void run();
+        void stop(void);
 
     private:
        void do_accept(void);
-    // members
-        std::shared_ptr<IServerSocket> m_Server;
-        std::shared_ptr <ThreadPool> m_threadPool;
-        std::shared_ptr<EventLoop> m_eventloop{nullptr};
+       // members
+       std::shared_ptr<IServerSocket> m_Server;
+       std::shared_ptr<ThreadPool> m_threadPool;
+       std::shared_ptr<EventLoop> m_eventloop{nullptr};
     };
 }
 

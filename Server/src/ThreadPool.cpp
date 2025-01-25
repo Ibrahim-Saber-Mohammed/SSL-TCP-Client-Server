@@ -11,6 +11,18 @@ ThreadPool::ThreadPool(std::size_t _numOfThreads) : m_stop(false)
 
 ThreadPool::~ThreadPool()
 {
+    this->shutdown();
+}
+void ThreadPool::enqueue(TaskHandler _task)
+{
+    { 
+        std::unique_lock<std::mutex> lock(m_mutex);
+        m_tasks.push(std::move(_task));
+    } 
+    m_condVar.notify_one();
+}
+void ThreadPool::shutdown(void)
+{
     {
         std::unique_lock<std::mutex> lock(m_mutex);
         m_stop = true;
@@ -23,14 +35,6 @@ ThreadPool::~ThreadPool()
             workerthread.join();
         }
     }
-}
-void ThreadPool::enqueue(TaskHandler _task)
-{
-    { 
-        std::unique_lock<std::mutex> lock(m_mutex);
-        m_tasks.push(std::move(_task));
-    } 
-    m_condVar.notify_one();
 }
 void ThreadPool::worker()
 {

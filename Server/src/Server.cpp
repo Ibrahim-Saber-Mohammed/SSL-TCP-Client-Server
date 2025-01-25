@@ -25,6 +25,11 @@ namespace NETWORK
         m_eventloop->run();
         
     }
+    void Server::stop(void)
+    {
+        m_eventloop->close();
+        m_threadPool->shutdown();
+    }
     void Server::do_accept(void)
     {
         if (m_Server->accept())

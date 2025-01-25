@@ -25,10 +25,10 @@ namespace NETWORK
             return context_;
         }
 
-    private:
-        SSL_Context() = default;
         SSL_Context(const SSL_Context &) = delete;
         SSL_Context &operator=(const SSL_Context &) = delete;
+    private:
+        SSL_Context() = default;
         std::shared_ptr<SSL_CTX> context_;
         std::shared_ptr<SSL_CTX> create_context()
         {

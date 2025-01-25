@@ -33,7 +33,7 @@ void Terminal::showTitle(const std::string &title)
 
 void Terminal::printMsg(const std::string &msg) {std::cout << WHITE << msg << RESET ; }
 
-void Terminal::printErrorMsg(const std::string &msg) { std::cout << RED << msg << RESET ; }
+void Terminal::printErrorMsg(const std::string &msg) { std::cerr << RED << msg << RESET ; }
 
 void Terminal::printConnectMsg(const std::string &msg) { std::cout << GREEN << msg << RESET ; }
 

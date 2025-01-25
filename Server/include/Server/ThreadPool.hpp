@@ -13,6 +13,8 @@ public:
     ThreadPool(std::size_t _numOfThreads);
     ~ThreadPool();
     void enqueue(TaskHandler _task);
+    void shutdown(void);
+
 private:
     std::queue<TaskHandler> m_tasks;
     std::vector<std::thread> m_workers;

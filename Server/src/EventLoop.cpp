@@ -133,4 +133,8 @@ namespace NETWORK
             }
         }
     }
+    void EventLoop::close(void)
+    {
+        
+    }
 }
