@@ -14,9 +14,9 @@ public:
     ~ThreadPool();
     void enqueue(TaskHandler _task);
 private:
-    mutable std::mutex m_mutex;
-    std::vector<std::thread> m_workers;
     std::queue<TaskHandler> m_tasks;
+    std::vector<std::thread> m_workers;
+    mutable std::mutex m_mutex;
     std::condition_variable m_condVar;
     bool m_stop;
     void worker(void);

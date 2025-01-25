@@ -20,6 +20,8 @@ namespace NETWORK
         m_eventloop->attachCallBack(m_Server->git_server_socket(),
                                      EventLoop::ActionType::RECIEVE, 
                                      [this](){this->do_accept();});
+
+        m_eventloop->setListenSocket(m_Server->git_server_socket());
         m_eventloop->run();
         
     }
@@ -27,8 +29,8 @@ namespace NETWORK
     {
         if (m_Server->accept())
         {
-            std::shared_ptr<SessionManager> session = std::shared_ptr<SessionManager>(new SessionManager(m_Server, m_eventloop, m_threadPool));
-            m_threadPool.enqueue( [session](){ session->start();});
+            auto session = std::make_shared<SessionManager>(m_Server, m_eventloop, m_threadPool);
+            m_threadPool->enqueue( [session](){ session->start();});
         }
     }
 }

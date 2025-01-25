@@ -226,6 +226,30 @@ src/Session.cpp.s:
 	cd /home/ibrahim/Desktop/Sockets/Client-Server/build && $(MAKE) $(MAKESILENT) -f Server/CMakeFiles/Sockets.dir/build.make Server/CMakeFiles/Sockets.dir/src/Session.cpp.s
 .PHONY : src/Session.cpp.s
 
+src/ThreadPool.o: src/ThreadPool.cpp.o
+.PHONY : src/ThreadPool.o
+
+# target to build an object file
+src/ThreadPool.cpp.o:
+	cd /home/ibrahim/Desktop/Sockets/Client-Server/build && $(MAKE) $(MAKESILENT) -f Server/CMakeFiles/Sockets.dir/build.make Server/CMakeFiles/Sockets.dir/src/ThreadPool.cpp.o
+.PHONY : src/ThreadPool.cpp.o
+
+src/ThreadPool.i: src/ThreadPool.cpp.i
+.PHONY : src/ThreadPool.i
+
+# target to preprocess a source file
+src/ThreadPool.cpp.i:
+	cd /home/ibrahim/Desktop/Sockets/Client-Server/build && $(MAKE) $(MAKESILENT) -f Server/CMakeFiles/Sockets.dir/build.make Server/CMakeFiles/Sockets.dir/src/ThreadPool.cpp.i
+.PHONY : src/ThreadPool.cpp.i
+
+src/ThreadPool.s: src/ThreadPool.cpp.s
+.PHONY : src/ThreadPool.s
+
+# target to generate assembly for a file
+src/ThreadPool.cpp.s:
+	cd /home/ibrahim/Desktop/Sockets/Client-Server/build && $(MAKE) $(MAKESILENT) -f Server/CMakeFiles/Sockets.dir/build.make Server/CMakeFiles/Sockets.dir/src/ThreadPool.cpp.s
+.PHONY : src/ThreadPool.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -247,6 +271,9 @@ help:
 	@echo "... src/Session.o"
 	@echo "... src/Session.i"
 	@echo "... src/Session.s"
+	@echo "... src/ThreadPool.o"
+	@echo "... src/ThreadPool.i"
+	@echo "... src/ThreadPool.s"
 .PHONY : help
 
 

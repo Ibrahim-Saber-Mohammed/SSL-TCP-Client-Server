@@ -330,7 +330,8 @@ CMakeFiles/ServerApp.dir/Server/src/main.cpp.o: ../Server/src/main.cpp \
   /usr/include/c++/11/thread \
   /usr/include/c++/11/bits/std_thread.h \
   /usr/include/c++/11/bits/this_thread_sleep.h \
-  ../Server/include/Server/ThreadSafetyQueue.hpp \
+  /usr/include/c++/11/condition_variable \
+  ../Server/include/Server/ThreadPool.hpp \
   /usr/include/c++/11/queue \
   /usr/include/c++/11/deque \
   /usr/include/c++/11/bits/stl_deque.h \
@@ -341,7 +342,6 @@ CMakeFiles/ServerApp.dir/Server/src/main.cpp.o: ../Server/src/main.cpp \
   /usr/include/c++/11/bits/vector.tcc \
   /usr/include/c++/11/bits/stl_heap.h \
   /usr/include/c++/11/bits/stl_queue.h \
-  /usr/include/c++/11/condition_variable \
   ../Server/include/Socket/EventLoop.hpp \
   /usr/include/c++/11/unordered_map \
   /usr/include/c++/11/bits/hashtable.h \
@@ -373,6 +373,8 @@ CMakeFiles/ServerApp.dir/Server/src/main.cpp.o: ../Server/src/main.cpp \
 /usr/include/c++/11/bits/deque.tcc:
 
 /usr/include/c++/11/deque:
+
+../Server/include/Server/ThreadPool.hpp:
 
 /usr/include/c++/11/bits/std_mutex.h:
 
@@ -549,8 +551,6 @@ CMakeFiles/ServerApp.dir/Server/src/main.cpp.o: ../Server/src/main.cpp \
 /usr/include/c++/11/cctype:
 
 /usr/include/x86_64-linux-gnu/bits/stdint-intn.h:
-
-../Server/include/Server/ThreadSafetyQueue.hpp:
 
 /usr/include/x86_64-linux-gnu/bits/types.h:
 

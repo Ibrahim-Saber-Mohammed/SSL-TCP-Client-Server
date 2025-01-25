@@ -14,8 +14,9 @@ namespace NETWORK{
         enum class ActionType{
             RECIEVE, WRITE, BOTH
         };
-        EventLoop(SOCKET listenSocket);
-        using OnActionCallBack= std::function<void(void)>;
+        EventLoop();
+        void setListenSocket(SOCKET listenSocket);
+        using OnActionCallBack = std::function<void(void)>;
         using MutexGuard = std::lock_guard<std::mutex>;
         void run(void);
         void attachCallBack(SOCKET socketFd, ActionType type, OnActionCallBack callBack);
