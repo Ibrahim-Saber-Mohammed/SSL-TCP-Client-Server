@@ -5,6 +5,7 @@
 #include <functional>
 #include <mutex>
 #include <thread>
+#include <condition_variable>
 #include <Socket/ISocket.hpp>
 #include <Socket/ServerSocket.hpp>
 #include <Server/Utilities.hpp>
@@ -20,9 +21,8 @@ namespace NETWORK{
         public:
         using OnRecieved = std::function<void(std::unique_ptr<std::string>)>;
         using OnAccept = std::function<void(void)>;
-        using MutexGuard = std::lock_guard<std::mutex>;
         SessionManager(std::shared_ptr<IServerSocket>socket, std::shared_ptr<EventLoop>eventloop, 
-                         std::shared_ptr<ThreadPool>_threadPool);
+                        std::shared_ptr<ThreadPool>_threadPool);
         void start(void);
         ~SessionManager();
         SessionManager(const SessionManager&) = delete;
@@ -31,15 +31,20 @@ namespace NETWORK{
         SessionManager& operator=(SessionManager&&) = delete;
         private:
             void do_HandShake(void);
+            void enqueueWriteTask(void);
+            void enqueueReadTask(void);
             void do_read(void);
-            bool do_write();
+            void do_write(void);
             void processQueue(void);
             OnRecieved onRecievedCallBack;
             char m_buffer[1024];
-            std::shared_ptr<SSL_Wrapper> m_ssl_wrapper;
             std::shared_ptr<IServerSocket> m_socket;
             std::shared_ptr<EventLoop> m_eventLoop{nullptr};
             std::shared_ptr<ThreadPool>m_threadPool;
+            std::shared_ptr<SSL_Wrapper> m_ssl_wrapper;
+            std::mutex m_socketMutex;
+            std::condition_variable m_writeCond;
+            bool m_writeComplete{false};
             SOCKET m_client{INVALID_SOCKET};
     };
 }

@@ -5,7 +5,7 @@
 #include <Socket/ServerSocket.hpp>
 #include <SessionManager/Session.hpp>
 #include <Socket/EventLoop.hpp>
-#include <server/ThreadPool.hpp>
+#include <Server/ThreadPool.hpp>
 
 namespace NETWORK
 {

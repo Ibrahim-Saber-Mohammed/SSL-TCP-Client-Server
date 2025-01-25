@@ -9,11 +9,12 @@ set(Sources
     include/SessionManager/SSL_Wrapper.hpp
     include/Server/Server.hpp
     include/Server/Utilities.hpp
-    include/Server/ThreadSafetyQueue.hpp
+    include/Server/ThreadPool.hpp
     src/EventLoop.cpp
     src/Server.cpp
     src/ServerSocket.cpp
     src/Session.cpp
+    src/ThreadPool.cpp
 )
 
 add_library(${This} ${Sources})

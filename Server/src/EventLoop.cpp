@@ -1,10 +1,15 @@
 #include <Socket/EventLoop.hpp>
 namespace NETWORK
 {
-    EventLoop::EventLoop(SOCKET listenSocket) : m_maxSocketFd{0}, m_listeneSocket{listenSocket}
+    EventLoop::EventLoop() : m_maxSocketFd{0}
     {
         FD_ZERO(&m_readSet);
         FD_ZERO(&m_writeSet);
+        
+    }
+    void EventLoop::setListenSocket(SOCKET listenSocket)
+    {
+        m_listeneSocket = listenSocket;
         FD_SET(m_listeneSocket, &m_readSet);
         m_maxSocketFd = m_listeneSocket;
     }

@@ -1,4 +1,4 @@
-#include <server/ThreadPool.hpp>
+#include <Server/ThreadPool.hpp>
 
 namespace NETWORK{
 ThreadPool::ThreadPool(std::size_t _numOfThreads) : m_stop(false)
